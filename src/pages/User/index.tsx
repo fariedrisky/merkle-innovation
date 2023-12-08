@@ -59,10 +59,17 @@ export const UserPage = () => {
             style: {
                 fontSize: '20px',
                 fontWeight: 'bold',
-                paddingLeft: '8px',
+                // justifyContent: 'center',
                 // backgroundColor: '#0000'
             },
         },
+        // cells: {
+        //     style: {
+        //         fontSize: '20px',
+        //         justifyContent: 'center',
+        //         // backgroundColor: '#0000'
+        //     },
+        // },
     };
 
     const columns: TableColumn<User>[] = [
@@ -78,13 +85,8 @@ export const UserPage = () => {
             name: 'Details',
             cell: (row: User) => (
                 <div>
-                    <p className='text-2xl'>
-                        <b>ID:</b> {row.id}
-                    </p>
                     <p className='text-lg'><b>Name:</b> {`${row.name.firstname} ${row.name.lastname}`}</p>
                     <p className='text-lg'><b>Email:</b> {row.email}</p>
-                    <p className='text-lg'><b>Phone Number:</b> {row.phone}</p>
-                    <p className='text-lg'><b>Address:</b> {`${row.address.city}, No: ${row.address.number}, ${row.address.street}, ${row.address.zipcode}`}</p>
                 </div>
             ),
             sortable: true,
@@ -114,10 +116,10 @@ export const UserPage = () => {
     return (
         <div className="w-full">
             <div className="flex justify-between mb-4 p-10">
-                <Button onClick={() => navigate('/add-user')} className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md">
+                <Button onClick={() => navigate('/add-user')}>
                     Add User
                 </Button>
-                <Button onClick={() => navigate('/login')} className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md">
+                <Button onClick={() => navigate('/login')}>
                     Logout
                 </Button>
             </div>

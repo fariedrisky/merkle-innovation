@@ -39,50 +39,48 @@ export const DetailUserPage = () => {
     }, []);
 
     return (
-        <div className="theme">
-            <div className="w-75 my-5">
-                <Card>
-                    <h3 className="text-center mt-3">Detail Users</h3>
-                    <div className="d-flex gap-3 flex-column my-3">
-                        {loading ? (
-                            <div className="pb-5 px-5 d-flex justify-content-center align-items-center ">
-                                {/* Loading Indicator */}
-                            </div>
-                        ) : (
-                            <div className="pb-5 px-5">
-                                <Card>
-                                    <header>Username: {user?.username}</header>
-                                    <div>
-                                        <p>ID: {user?.id}</p>
-                                        <p className="m-0">
-                                            <b>Name:</b> {`${firstName} ${lastName}`}
-                                        </p>
-                                        <p className="m-0">
-                                            <b>Email:</b> {user?.email}
-                                        </p>
-                                        <p className="m-0">
-                                            <b>Phone Number:</b> {user?.phone}
-                                        </p>
-                                        <p>
-                                            <b>Address:</b> {`${city}, No: ${number}, ${zipcode}`}
-                                        </p>
-                                    </div>
-                                </Card>
-                            </div>
-                        )}
-                        {!loading && (
-                            <div className="flex justify-between mb-4 p-10">
-                                <Link to={`/edit-user/${user?.id}`}>
-                                    <Button>Edit</Button>
-                                </Link>
-                                <Link to={`/users`}>
-                                    <Button>Back</Button>
-                                </Link>
-                            </div>
-                        )}
-                    </div>
-                </Card>
-            </div>
+        <div className="flex justify-center items-center w-full h-screen">
+            <Card className="w-1/2 p-5 max-w-full">
+                <Link to={`/users`}>
+                    <Button>Back</Button>
+                </Link>
+                <h3 className="text-center mt-3 font-bold">Detail Users</h3>
+                <div className="d-flex gap-3 flex-column my-3">
+                    {loading ? (
+                        <div className="pb-5 px-5 d-flex justify-content-center align-items-center ">
+                            {/* Loading Indicator */}
+                        </div>
+                    ) : (
+                        <div className="pb-5 px-5">
+                            <Card>
+                                <header><b>Username:</b> {user?.username}</header>
+                                <div>
+                                    <p><b>ID:</b> {user?.id}</p>
+                                    <p className="m-0">
+                                        <b>Name:</b> {`${firstName} ${lastName}`}
+                                    </p>
+                                    <p className="m-0">
+                                        <b>Email:</b> {user?.email}
+                                    </p>
+                                    <p className="m-0">
+                                        <b>Phone Number:</b> {user?.phone}
+                                    </p>
+                                    <p>
+                                        <b>Address:</b> {`${city}, No: ${number}, ${zipcode}`}
+                                    </p>
+                                </div>
+                            </Card>
+                        </div>
+                    )}
+                    {!loading && (
+                        <div className="flex justify-center items-center">
+                            <Link to={`/edit-user/${user?.id}`}>
+                                <Button>Edit</Button>
+                            </Link>
+                        </div>
+                    )}
+                </div>
+            </Card>
         </div>
     );
 }

@@ -52,7 +52,7 @@ export const LoginPage = () => {
 
     return (
         <div className="bg-primary" style={{ backgroundImage: `url(${pattern})`, backgroundBlendMode: `multiply` }}>
-            <div className="flex items-center justify-center items-center h-screen">
+            <div className="flex justify-center items-center h-screen">
                 <Card className="w-1/2 p-5 max-w-full">
                     <span className='flex justify-center items-center text-2xl font-bold mb-10'>
                         Silahkan Login untuk Masuk ke Akun Anda

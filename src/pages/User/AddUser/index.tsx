@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { register } from '../../../utils/api';
 import { Card, Button, TextInput, Label } from "flowbite-react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 interface FormValues {
@@ -64,46 +64,42 @@ export const AddUserPage = () => {
     };
 
     return (
-        <div className="theme flex justify-center items-center h-full">
-            <div className="card my-5 mx-3 w-md-50">
-                <div className="card-body p-md-5">
-                    <h5 className="card-title text-center">Silahkan Register Akun Anda</h5>
-                    <div className="pe-xl-3 py-3">
-                        <Card className="max-w-sm">
-                            <form className="flex max-w-md flex-col gap-4" onSubmit={handleRegister}>
-                                <div className="grid grid-cols-2 gap-4">
-                                    {Object.entries(formValues).map(([fieldName, fieldValue]) => (
-                                        <div key={fieldName}>
-                                            <div className="mb-2 block">
-                                                <Label htmlFor={fieldName} value={fieldName.charAt(0).toUpperCase() + fieldName.slice(1)} />
-                                            </div>
-                                            <TextInput
-                                                id={fieldName}
-                                                name={fieldName}
-                                                type="text"
-                                                placeholder={`Enter ${fieldName.charAt(0).toUpperCase() + fieldName.slice(1)}`}
-                                                value={fieldValue}
-                                                onChange={handleInputChange}
-                                                required
-                                            />
-                                        </div>
-                                    ))}
+        <div className="flex justify-center items-center h-screen">
+            <Card className="w-1/2 p-5 max-w-full">
+                <Link to={`/users`}>
+                    <Button>Back</Button>
+                </Link>
+                <form className="flex flex-col gap-4" onSubmit={handleRegister}>
+                    <div className="grid grid-cols-2 gap-4">
+                        {Object.entries(formValues).map(([fieldName, fieldValue]) => (
+                            <div key={fieldName}>
+                                <div className="mb-2 block">
+                                    <Label htmlFor={fieldName} value={fieldName.charAt(0).toUpperCase() + fieldName.slice(1)} />
                                 </div>
-                                <Button type="submit">
-                                    {loading ? (
-                                        <div className="d-flex gap-2 justify-content-center align-items-center">
-                                            <div className="spinner-border spinner-border-sm text-white" role="status"></div>
-                                            <div>Loading . . .</div>
-                                        </div>
-                                    ) : (
-                                        "Submit"
-                                    )}
-                                </Button>
-                            </form>
-                        </Card>
+                                <TextInput
+                                    id={fieldName}
+                                    name={fieldName}
+                                    type="text"
+                                    placeholder={`Enter ${fieldName.charAt(0).toUpperCase() + fieldName.slice(1)}`}
+                                    value={fieldValue}
+                                    onChange={handleInputChange}
+                                    required
+                                />
+                            </div>
+                        ))}
                     </div>
-                </div>
-            </div>
+                    <Button type="submit">
+                        {loading ? (
+                            <div className="d-flex gap-2 justify-content-center align-items-center">
+                                <div className="spinner-border spinner-border-sm text-white" role="status"></div>
+                                <div>Loading . . .</div>
+                            </div>
+                        ) : (
+                            "Submit"
+                        )}
+                    </Button>
+                </form>
+            </Card>
         </div>
     );
 }
