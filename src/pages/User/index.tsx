@@ -9,9 +9,9 @@ export const UserPage = () => {
     const [users, setUsers] = useState<User[]>([]);
     const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const limit = 10;
+    const [limit] = useState(10); // Set the default limit to 10
 
-    const navigate = useNavigate(); // Inisialisasi useNavigate
+    const navigate = useNavigate();
 
     const getAllUser = () => {
         setLoading(true);
@@ -22,8 +22,7 @@ export const UserPage = () => {
             })
             .catch((error) => {
                 console.error('Error fetching users:', error);
-                // Lakukan sesuatu dengan error, seperti menampilkan pesan kesalahan kepada pengguna
-                setLoading(false); // Tetap atur loading menjadi false setelah menangani kesalahan
+                setLoading(false);
             });
     };
 
@@ -59,25 +58,14 @@ export const UserPage = () => {
             style: {
                 fontSize: '20px',
                 fontWeight: 'bold',
-                // justifyContent: 'center',
-                // backgroundColor: '#0000'
             },
         },
-        // cells: {
-        //     style: {
-        //         fontSize: '20px',
-        //         justifyContent: 'center',
-        //         // backgroundColor: '#0000'
-        //     },
-        // },
     };
 
     const columns: TableColumn<User>[] = [
         {
             name: 'ID',
-            cell: (row: User) => (
-                <p className='text-lg'>{row.id}</p>
-            ),
+            cell: (row: User) => <p className='text-lg'>{row.id}</p>,
             sortable: true,
             width: '100px',
         },
@@ -95,9 +83,7 @@ export const UserPage = () => {
             name: 'Actions',
             cell: (row: User) => (
                 <div>
-                    <Link
-                        to={`/detail-user/${row.id}`}
-                    >
+                    <Link to={`/detail-user/${row.id}`}>
                         <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md mr-2">
                             Detail User
                         </button>
@@ -108,7 +94,6 @@ export const UserPage = () => {
                     >
                         Delete
                     </button>
-
                 </div>
             ),
         },
