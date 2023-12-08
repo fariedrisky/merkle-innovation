@@ -21,9 +21,6 @@ export interface User {
     };
     phone: string;
 }
-
-
-
 const HOST = "https://fakestoreapi.com";
 
 export const login = (body: any): Promise<AxiosResponse<any>> => {

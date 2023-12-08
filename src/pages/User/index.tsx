@@ -95,19 +95,20 @@ export const UserPage = () => {
             name: 'Actions',
             cell: (row: User) => (
                 <div>
+                    <Link
+                        to={`/detail-user/${row.id}`}
+                    >
+                        <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md mr-2">
+                            Detail User
+                        </button>
+                    </Link>
                     <button
                         onClick={() => handleDeleteUser(row.id, `${row.name.firstname} ${row.name.lastname}`)}
                         className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md mr-2"
                     >
                         Delete
                     </button>
-                    <Link
-                        to={`/detail-user/${row.id}`}
-                    >
-                        <button className="bg-blue-500 hover:bg-red-600 text-white px-4 py-2 rounded-md mr-2">
-                            Detail User
-                        </button>
-                    </Link>
+
                 </div>
             ),
         },

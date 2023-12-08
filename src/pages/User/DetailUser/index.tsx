@@ -44,7 +44,7 @@ export const DetailUserPage = () => {
                 <Link to={`/users`}>
                     <Button>Back</Button>
                 </Link>
-                <h3 className="text-center mt-3 font-bold">Detail Users</h3>
+                <h3 className="text-center mt-3 font-bold text-2xl">Detail Users</h3>
                 <div className="d-flex gap-3 flex-column my-3">
                     {loading ? (
                         <div className="pb-5 px-5 d-flex justify-content-center align-items-center ">
