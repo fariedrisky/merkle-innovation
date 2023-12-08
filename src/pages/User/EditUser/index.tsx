@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { register } from '../../../utils/api';
-import { Card, Button, TextInput, Label } from "flowbite-react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { detailUser, EditUser } from '../../../utils/api';
+import { Button, Card, Label, TextInput } from "flowbite-react";
+import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 
 interface FormValues {
@@ -15,9 +15,11 @@ interface FormValues {
     street: string;
     number: string;
     zipCode: string;
+    id?: number; // Add id as an optional field
 }
 
-export const AddUserPage = () => {
+export const EditUserPage = () => {
+    const { id } = useParams<{ id: string }>(); // Assuming the ID parameter is available in the route
     const [formValues, setFormValues] = useState<FormValues>({
         email: "",
         username: "",
@@ -29,7 +31,9 @@ export const AddUserPage = () => {
         street: "",
         number: "",
         zipCode: "",
+        id: undefined, // Initialize id as undefined
     });
+
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
@@ -38,36 +42,69 @@ export const AddUserPage = () => {
         setFormValues({ ...formValues, [name]: value });
     };
 
-    const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleEdit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setLoading(true);
-        register(formValues)
-            .then((response) => {
-                setLoading(false);
-                Swal.fire({
-                    position: "center",
-                    icon: "success",
-                    title: `Success Add New User with ID : ${response.data.id}`,
-                    showConfirmButton: false,
-                    timer: 1500,
-                });
-                setTimeout(() => {
-                    navigate("/users");
-                }, 2000);
-            })
-            .catch((error) => {
-                setLoading(false);
+        try {
+            await EditUser(formValues.id!, formValues); // Assuming formValues has an 'id' field for identification
+            setLoading(false);
+            Swal.fire({
+                position: "center",
+                icon: "success",
+                title: `Success Edit User with ID : ${formValues.id}`,
+                showConfirmButton: false,
+                timer: 1500,
             });
+            setTimeout(() => {
+                navigate("/users");
+            }, 2000);
+        } catch (error) {
+            setLoading(false);
+            // Handle error here
+        }
     };
+
+    const getDetailUser = () => {
+        if (id) {
+            const userId = parseInt(id, 10);
+            detailUser(userId)
+                .then((response) => {
+                    const { data } = response;
+                    setFormValues({
+                        id: data.id,
+                        email: data.email,
+                        username: data.username,
+                        phone: data.phone,
+                        password: data.password,
+                        firstName: data.name.firstname,
+                        lastName: data.name.lastname,
+                        city: data.address.city,
+                        street: data.address.street,
+                        number: data.address.number.toString(), // Assuming 'number' should be a string in the form
+                        zipCode: data.address.zipcode,
+                    });
+                })
+                .catch((error) => {
+                    // Handle error here
+                });
+        }
+    };
+
+    useEffect(() => {
+        if (id) {
+            getDetailUser();
+            setFormValues({ ...formValues, id: parseInt(id, 10) }); // Set the id in formValues
+        }
+    }, [id]);
 
     return (
         <div className="theme flex justify-center items-center h-full">
             <div className="card my-5 mx-3 w-md-50">
                 <div className="card-body p-md-5">
-                    <h5 className="card-title text-center">Silahkan Register Akun Anda</h5>
+                    <h5 className="card-title text-center">Silahkan Edit Akun Anda</h5>
                     <div className="pe-xl-3 py-3">
                         <Card className="max-w-sm">
-                            <form className="flex max-w-md flex-col gap-4" onSubmit={handleRegister}>
+                            <form className="flex max-w-md flex-col gap-4" onSubmit={handleEdit}>
                                 <div className="grid grid-cols-2 gap-4">
                                     <div>
                                         <div className="mb-2 block">
@@ -221,7 +258,6 @@ export const AddUserPage = () => {
                                     )}
                                 </Button>
                             </form>
-
                         </Card>
                     </div>
                 </div>
@@ -230,4 +266,4 @@ export const AddUserPage = () => {
     );
 }
 
-export default AddUserPage;
+export default EditUserPage;

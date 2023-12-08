@@ -74,7 +74,7 @@ export const DetailUserPage = () => {
                             {loading ? (
                                 ""
                             ) : (
-                                <div className="d-flex justify-content-between mx-5 mb-4">
+                                <div className="flex justify-between mb-4 p-10">
                                     <Link to={`/edit-user/${user?.id}`}>
                                         <Button>Edit</Button>
                                     </Link>

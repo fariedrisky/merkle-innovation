@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import DataTable, { TableColumn } from 'react-data-table-component';
 import { User, allUser, deleteUser } from '../../utils/api';
 import Swal from 'sweetalert2';
-import { Button } from 'flowbite-react';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Button, Card } from 'flowbite-react';
+import { Link, useNavigate } from 'react-router-dom';
 
 export const UserPage = () => {
     const [users, setUsers] = useState<User[]>([]);
@@ -52,21 +52,37 @@ export const UserPage = () => {
         getAllUser();
     }, [currentPage]);
 
+    const tableCustomStyles = {
+        headCells: {
+            style: {
+                fontSize: '20px',
+                fontWeight: 'bold',
+                paddingLeft: '8px',
+                // backgroundColor: '#0000'
+            },
+        },
+    };
+
     const columns: TableColumn<User>[] = [
         {
             name: 'ID',
-            selector: (row: User) => row.id,
+            cell: (row: User) => (
+                <p className='text-lg'>{row.id}</p>
+            ),
             sortable: true,
+            width: '100px',
         },
         {
             name: 'Details',
             selector: (row: User) => (
                 <div>
-                    <p><b>ID:</b> {row.id}</p>
-                    <p><b>Name:</b> {`${row.name.firstname} ${row.name.lastname}`}</p>
-                    <p><b>Email:</b> {row.email}</p>
-                    <p><b>Phone Number:</b> {row.phone}</p>
-                    <p><b>Address:</b> {`${row.address.city}, No: ${row.address.number}, ${row.address.street}, ${row.address.zipcode}`}</p>
+                    <p className='text-2xl'>
+                        <b>ID:</b> {row.id}
+                    </p>
+                    <p className='text-lg'><b>Name:</b> {`${row.name.firstname} ${row.name.lastname}`}</p>
+                    <p className='text-lg'><b>Email:</b> {row.email}</p>
+                    <p className='text-lg'><b>Phone Number:</b> {row.phone}</p>
+                    <p className='text-lg'><b>Address:</b> {`${row.address.city}, No: ${row.address.number}, ${row.address.street}, ${row.address.zipcode}`}</p>
                 </div>
             ),
             sortable: true,
@@ -84,9 +100,9 @@ export const UserPage = () => {
                     <Link
                         to={`/detail-user/${row.id}`}
                     >
-                        <Button>
+                        <button className="bg-blue-500 hover:bg-red-600 text-white px-4 py-2 rounded-md mr-2">
                             Detail User
-                        </Button>
+                        </button>
                     </Link>
                 </div>
             ),
@@ -95,26 +111,32 @@ export const UserPage = () => {
 
     return (
         <div className="w-full">
-            <div className="flex justify-between mb-4">
+            <div className="flex justify-between mb-4 p-10">
                 <Button onClick={() => navigate('/add-user')} className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md">
                     Add User
                 </Button>
+                <Button onClick={() => navigate('/login')} className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md">
+                    Logout
+                </Button>
             </div>
-            <DataTable
-                title="User List"
-                columns={columns}
-                data={users}
-                pagination
-                paginationServer
-                paginationTotalRows={100}
-                paginationPerPage={limit}
-                paginationRowsPerPageOptions={[10, 25, 50, 100]}
-                onChangePage={(page) => setCurrentPage(page)}
-                progressPending={loading}
-                progressComponent={<h2>Loading...</h2>}
-            />
+            <div className='flex justify-center items-center'>
+                <Card className='w-full max-w-7xl'>
+                    <DataTable
+                        title="User List"
+                        columns={columns}
+                        data={users}
+                        pagination
+                        paginationServer
+                        paginationTotalRows={100}
+                        paginationPerPage={limit}
+                        paginationRowsPerPageOptions={[10, 25, 50, 100]}
+                        onChangePage={(page) => setCurrentPage(page)}
+                        progressPending={loading}
+                        progressComponent={<h2>Loading...</h2>}
+                        customStyles={tableCustomStyles}
+                    />
+                </Card>
+            </div>
         </div>
     );
 };
-
-export default UserPage;

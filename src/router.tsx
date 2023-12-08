@@ -4,6 +4,7 @@ import LoginPage from "./pages/Login";
 import { UserPage } from "./pages/User";
 import { DetailUserPage } from "./pages/User/DetailUser";
 import { AddUserPage } from "./pages/User/AddUser";
+import EditUserPage from "./pages/User/EditUser";
 
 const router = createBrowserRouter([
   {
@@ -22,10 +23,10 @@ const router = createBrowserRouter([
     path: "/add-user",
     element: <AddUserPage />,
   },
-  // {
-  //   path: "/edit-user/:id",
-  //   element: <Edit />,
-  // }
+  {
+    path: "/edit-user/:id",
+    element: <EditUserPage />,
+  },
   {
     path: "/detail-user/:id",
     element: <DetailUserPage />,
