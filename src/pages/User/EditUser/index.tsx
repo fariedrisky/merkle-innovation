@@ -19,7 +19,7 @@ interface FormValues {
 }
 
 export const EditUserPage = () => {
-    const { id } = useParams<{ id: string }>(); // Assuming the ID parameter is available in the route
+    const { id } = useParams<{ id: string }>();
     const [formValues, setFormValues] = useState<FormValues>({
         email: "",
         username: "",
@@ -31,7 +31,7 @@ export const EditUserPage = () => {
         street: "",
         number: "",
         zipCode: "",
-        id: undefined, // Initialize id as undefined
+        id: undefined,
     });
 
     const [loading, setLoading] = useState(false);
@@ -46,7 +46,7 @@ export const EditUserPage = () => {
         e.preventDefault();
         setLoading(true);
         try {
-            await EditUser(formValues.id!, formValues); // Assuming formValues has an 'id' field for identification
+            await EditUser(formValues.id!, formValues);
             setLoading(false);
             Swal.fire({
                 position: "center",
@@ -60,7 +60,7 @@ export const EditUserPage = () => {
             }, 2000);
         } catch (error) {
             setLoading(false);
-            // Handle error here
+            console.error(error); // Handle error here
         }
     };
 
@@ -85,7 +85,7 @@ export const EditUserPage = () => {
                     });
                 })
                 .catch((error) => {
-                    // Handle error here
+                    console.error(error); // Handle error here
                 });
         }
     };
@@ -93,7 +93,7 @@ export const EditUserPage = () => {
     useEffect(() => {
         if (id) {
             getDetailUser();
-            setFormValues({ ...formValues, id: parseInt(id, 10) }); // Set the id in formValues
+            setFormValues((prevFormValues) => ({ ...prevFormValues, id: parseInt(id, 10) }));
         }
     }, [id]);
 
@@ -106,146 +106,22 @@ export const EditUserPage = () => {
                         <Card className="max-w-sm">
                             <form className="flex max-w-md flex-col gap-4" onSubmit={handleEdit}>
                                 <div className="grid grid-cols-2 gap-4">
-                                    <div>
-                                        <div className="mb-2 block">
-                                            <Label htmlFor="email" value="Email" />
+                                    {Object.entries(formValues).map(([fieldName, fieldValue]) => (
+                                        <div key={fieldName}>
+                                            <div className="mb-2 block">
+                                                <Label htmlFor={fieldName} value={fieldName.charAt(0).toUpperCase() + fieldName.slice(1)} />
+                                            </div>
+                                            <TextInput
+                                                id={fieldName}
+                                                name={fieldName}
+                                                type="text"
+                                                placeholder={`Enter ${fieldName.charAt(0).toUpperCase() + fieldName.slice(1)}`}
+                                                value={fieldValue}
+                                                onChange={handleInputChange}
+                                                required
+                                            />
                                         </div>
-                                        <TextInput
-                                            id="email"
-                                            name="email"
-                                            type="email"
-                                            placeholder="Enter Email"
-                                            value={formValues.email}
-                                            onChange={handleInputChange}
-                                            required
-                                        />
-                                    </div>
-                                    <div>
-                                        <div className="mb-2 block">
-                                            <Label htmlFor="username" value="Username" />
-                                        </div>
-                                        <TextInput
-                                            id="username"
-                                            name="username"
-                                            type="text"
-                                            placeholder="Enter Username"
-                                            value={formValues.username}
-                                            onChange={handleInputChange}
-                                            required
-                                        />
-                                    </div>
-                                    <div>
-                                        <div className="mb-2 block">
-                                            <Label htmlFor="phone" value="Phone Number" />
-                                        </div>
-                                        <TextInput
-                                            id="phone"
-                                            name="phone"
-                                            type="text"
-                                            placeholder="Enter Phone Number"
-                                            value={formValues.phone}
-                                            onChange={handleInputChange}
-                                            required
-                                        />
-                                    </div>
-                                    <div>
-                                        <div className="mb-2 block">
-                                            <Label htmlFor="password" value="Password" />
-                                        </div>
-                                        <TextInput
-                                            id="password"
-                                            name="password"
-                                            type="password"
-                                            placeholder="Enter Password"
-                                            value={formValues.password}
-                                            onChange={handleInputChange}
-                                            required
-                                        />
-                                    </div>
-                                    <div>
-                                        <div className="mb-2 block">
-                                            <Label htmlFor="firstName" value="First Name" />
-                                        </div>
-                                        <TextInput
-                                            id="firstName"
-                                            name="firstName"
-                                            type="text"
-                                            placeholder="Enter First Name"
-                                            value={formValues.firstName}
-                                            onChange={handleInputChange}
-                                            required
-                                        />
-                                    </div>
-                                    <div>
-                                        <div className="mb-2 block">
-                                            <Label htmlFor="lastName" value="Last Name" />
-                                        </div>
-                                        <TextInput
-                                            id="lastName"
-                                            name="lastName"
-                                            type="text"
-                                            placeholder="Enter Last Name"
-                                            value={formValues.lastName}
-                                            onChange={handleInputChange}
-                                            required
-                                        />
-                                    </div>
-                                    <div>
-                                        <div className="mb-2 block">
-                                            <Label htmlFor="city" value="City" />
-                                        </div>
-                                        <TextInput
-                                            id="city"
-                                            name="city"
-                                            type="text"
-                                            placeholder="Enter City"
-                                            value={formValues.city}
-                                            onChange={handleInputChange}
-                                            required
-                                        />
-                                    </div>
-                                    <div>
-                                        <div className="mb-2 block">
-                                            <Label htmlFor="street" value="Street" />
-                                        </div>
-                                        <TextInput
-                                            id="street"
-                                            name="street"
-                                            type="text"
-                                            placeholder="Enter Street"
-                                            value={formValues.street}
-                                            onChange={handleInputChange}
-                                            required
-                                        />
-                                    </div>
-                                    <div>
-                                        <div className="mb-2 block">
-                                            <Label htmlFor="number" value="Number" />
-                                        </div>
-                                        <TextInput
-                                            id="number"
-                                            name="number"
-                                            type="text"
-                                            placeholder="Enter Number"
-                                            value={formValues.number}
-                                            onChange={handleInputChange}
-                                            required
-                                        />
-                                    </div>
-                                    <div>
-                                        <div className="mb-2 block">
-                                            <Label htmlFor="zipCode" value="Zip Code" />
-                                        </div>
-                                        <TextInput
-                                            id="zipCode"
-                                            name="zipCode"
-                                            type="text"
-                                            placeholder="Enter Zip Code"
-                                            value={formValues.zipCode}
-                                            onChange={handleInputChange}
-                                            required
-                                        />
-                                    </div>
+                                    ))}
                                 </div>
                                 <Button type="submit">
                                     {loading ? (

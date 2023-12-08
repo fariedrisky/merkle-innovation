@@ -21,7 +21,9 @@ export const UserPage = () => {
                 setLoading(false);
             })
             .catch((error) => {
-                setLoading(false);
+                console.error('Error fetching users:', error);
+                // Lakukan sesuatu dengan error, seperti menampilkan pesan kesalahan kepada pengguna
+                setLoading(false); // Tetap atur loading menjadi false setelah menangani kesalahan
             });
     };
 
@@ -74,7 +76,7 @@ export const UserPage = () => {
         },
         {
             name: 'Details',
-            selector: (row: User) => (
+            cell: (row: User) => (
                 <div>
                     <p className='text-2xl'>
                         <b>ID:</b> {row.id}
