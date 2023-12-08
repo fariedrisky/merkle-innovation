@@ -1,30 +1,52 @@
-# React + TypeScript + Vite
+<h1 align="center"><u> Merkle Innovation</u></h1>
+<p align="left">
+<h2>Built with React Vite TypeScript</h2>
+</p>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[![Requirements](https://skillicons.dev/icons?i=react)](https://skillicons.dev)
 
-Currently, two official plugins are available:
+<br>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Table of Contents
 
-## Expanding the ESLint configuration
+-   [Introduction](#introduction)
+-   [Features](#features)
+-   [Requirements](#requirements)
+-   [Usage](#usage-for-development)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Introduction
 
-- Configure the top-level `parserOptions` property like this:
+# **About Merkle Innovation**
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+_Merkle Innovation is a website Application buil with React Js. It has some features like Authentication , All User , Edit User, Add New User and Delete User_
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Features
+
+-   Login
+-   Add New User
+-   Get All User
+-   Detail User
+-   Edit User
+-   Delete User
+
+## Requirements
+
+[![Requirements](https://skillicons.dev/icons?i=react,vscode,vercel)](https://skillicons.dev)
+
+## Usage for development
+
+1.  Open your terminal or command prompt.
+2.  Type `git clone https://github.com/fariedrisky/merkle-innovation.git`
+3.  Open folder with your text editor.
+4.  Start to edit and development.
+5.  Run yarn install on your terminal
+6.  Run yarn dev to lauch the app with local server
+7.  login with
+    username: "mor_2314",
+    password: "83r5^_"
+
+## Deployment Project
+
+-   Deploymet Site [`here`](https://merkle-innovation.vercel.app)
+
+<p align="center"><sub><b>&copy;2023 @MerkleInnovation</b></sub></p>
